@@ -55,7 +55,7 @@
           vjsControls.el().parentNode.insertBefore(
               document.createElement('div'),
               vjsControls.el());
-      adContainerDiv.id = 'ima-ad-container';
+      adContainerDiv.id = generateElementId('ima-ad-container');
       adContainerDiv.style.width = player.width() + 'px';
       adContainerDiv.style.height = player.height() + 'px';
       adContainerDiv.addEventListener(
@@ -77,41 +77,41 @@
      */
     player.ima.createControls_ = function() {
       controlsDiv = document.createElement('div');
-      controlsDiv.id = 'ima-controls-div';
+      controlsDiv.id = generateElementId('ima-controls-div');
       controlsDiv.style.width = '100%';
       countdownDiv = document.createElement('div');
-      countdownDiv.id = 'ima-countdown-div';
+      countdownDiv.id = generateElementId('ima-countdown-div');
       countdownDiv.innerHTML = 'Advertisement';
       countdownDiv.style.display = showCountdown ? 'block' : 'none';
       seekBarDiv = document.createElement('div');
-      seekBarDiv.id = 'ima-seek-bar-div';
+      seekBarDiv.id = generateElementId('ima-seek-bar-div');
       seekBarDiv.style.width = player.width() + 'px';
       progressDiv = document.createElement('div');
-      progressDiv.id = 'ima-progress-div';
+      progressDiv.id = generateElementId('ima-progress-div');
       playPauseDiv = document.createElement('div');
-      playPauseDiv.id = 'ima-play-pause-div';
+      playPauseDiv.id = generateElementId('ima-play-pause-div');
       playPauseDiv.className = 'ima-playing';
       playPauseDiv.addEventListener(
           'click',
           player.ima.onAdPlayPauseClick_,
           false);
       muteDiv = document.createElement('div');
-      muteDiv.id = 'ima-mute-div';
+      muteDiv.id = generateElementId('ima-mute-div');
       muteDiv.className = 'ima-non-muted';
       muteDiv.addEventListener(
           'click',
           player.ima.onAdMuteClick_,
           false);
       sliderDiv = document.createElement('div');
-      sliderDiv.id = 'ima-slider-div';
+      sliderDiv.id = generateElementId('ima-slider-div');
       sliderDiv.addEventListener(
           'mousedown',
           player.ima.onAdVolumeSliderMouseDown_,
           false);
       sliderLevelDiv = document.createElement('div');
-      sliderLevelDiv.id = 'ima-slider-level-div';
+      sliderLevelDiv.id = generateElementId('ima-slider-level-div');
       fullscreenDiv = document.createElement('div');
-      fullscreenDiv.id = 'ima-fullscreen-div';
+      fullscreenDiv.id = generateElementId('ima-fullscreen-div');
       fullscreenDiv.className = 'ima-non-fullscreen';
       fullscreenDiv.addEventListener(
           'click',
@@ -976,6 +976,16 @@
       window.console.log('Error: must provide id of video.js div');
       return;
     }
+
+    /**
+    * Add the videojs player's id as a postfix to the IMA element 
+    * in order to allow multiple ima instances on one page, one per
+    * videojs player
+    */
+    var generateElementId = function(id){
+      return id + "_" + settings['id'];
+    };
+
     contentPlayer = document.getElementById(settings['id'] + '_html5_api');
     // Default showing countdown timer to true.
     showCountdown = true;
