@@ -199,7 +199,7 @@
           player.ima.onAdStarted_);
       adsManager.addEventListener(
           google.ima.AdEvent.Type.CLICK,
-          player.ima.onAdPlayPauseClick_);
+          player.ima.onAdClicked_);
       adsManager.addEventListener(
           google.ima.AdEvent.Type.COMPLETE,
           player.ima.onAdComplete_);
@@ -429,6 +429,12 @@
         adsManager.resume();
         adPlaying = true;
       }
+    };
+
+    player.ima.onAdClicked_ = function() {
+        playPauseDiv.className = 'ima-paused';
+        adsManager.pause();
+        adPlaying = false;
     };
 
     /**
