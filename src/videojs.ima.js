@@ -85,6 +85,7 @@
       countdownDiv.style.display = showCountdown ? 'block' : 'none';
       seekBarDiv = document.createElement('div');
       seekBarDiv.id = 'ima-seek-bar-div';
+      seekBarDiv.className = 'ima-seek-bar-div';
       seekBarDiv.style.width = player.width() + 'px';
       progressDiv = document.createElement('div');
       progressDiv.id = 'ima-progress-div';
@@ -335,10 +336,10 @@
         adTrackingTimer = setInterval(
             player.ima.onAdPlayheadTrackerInterval_, 250);
         // Don't bump container when controls are shown
-        adContainerDiv.className = '';
+        adContainerDiv.className = 'ima-ad-container';
       } else {
         // Bump container when controls are shown
-        adContainerDiv.className = 'bumpable-ima-ad-container';
+        adContainerDiv.className = 'ima-ad-container bumpable-ima-ad-container';
       }
     };
 
@@ -969,6 +970,9 @@
     };
 
     var playerDisposedListener = function(){
+      contentEndedListeners, contentAndAdsEndedListeners = [], [];
+      contentComplete = true;
+      player.off('ended', localContentEndedListener);
       if(updateTimeIntervalHandle){
         clearInterval(updateTimeIntervalHandle);
       }
